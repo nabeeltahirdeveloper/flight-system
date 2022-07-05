@@ -1,0 +1,9 @@
+html, body, #__next{
+    margin: 0;
+    height: 100%;
+    min-width: 320px;
+}
+body{
+    background-color: gray;
+    margin: 0;
+}
