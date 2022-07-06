@@ -26,6 +26,28 @@ const index = () => {
     const handleCallClose = () => setCallOpen(false);
     const [ballance, setBallance] = useState(0);
     const [loyaltyCoin, setLoyaltyCoin] = useState(0);
+    const [play, setPlay] = useState(false)
+    const [button, setButton] = useState(false)
+    const [audio, setAudio] = useState(null)
+
+
+
+    useEffect(() => {
+        const audioVar = new Audio("./phoneCall.mp3")
+        setAudio(audioVar)
+
+
+    }, [])
+    let playAudio = () => {
+        console.log("play")
+        audio.play()
+        audio.onended = () => {
+            setPlay(false)
+            setButton(false)
+            handleOpen();
+            console.log("ended")
+        }
+    }
     useEffect(() => {
         let loyaltyData = localStorage.getItem('loyaltyData')
         if (loyaltyData) {
@@ -45,6 +67,7 @@ const index = () => {
                 add card
                 <AddCardIcon />
             </Button>
+
             <p className={styles.balance}>
                 your current balance is:{ballance}
             </p>
@@ -52,12 +75,16 @@ const index = () => {
                 your current Loyalty Points :{loyaltyCoin}
             </p>
             <div className={styles.inputGroup}>
+
                 <input type="number" className={styles.numberInput} placeholder="+920000000000" />
                 <button className={styles.buttonCall} onClick={
                     () => {
                         if (ballance >= 10) {
                             setBallance(ballance - 10)
-                            setCallOpen(true)
+                            audio.play()
+                            audio.onended = () => {
+                                setCallOpen(true)
+                            }
                         }
                         else {
                             alert("you don't have enough money")
@@ -73,7 +100,10 @@ const index = () => {
                                 let loyaltyCoinData = loyaltyCoin - 10
                                 setLoyaltyCoin(loyaltyCoinData)
                                 localStorage.setItem("loyaltyData", loyaltyCoinData)
-                                setCallOpen(true)
+                                audio.play()
+                                audio.onended = () => {
+                                    setCallOpen(true)
+                                }
 
                             }
                             else {
