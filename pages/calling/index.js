@@ -27,23 +27,26 @@ export default function BasicModal() {
     const handleClose = () => setOpen(false);
     const [play, setPlay] = useState(false)
     const [button, setButton] = useState(false)
-    const [audio] = useState(typeof Audio !== "undefined" && new Audio("./call.mp3"));
+    const [audio, setAudio] = useState(null)
 
 
 
     useEffect(() => {
+        const audioVar = new Audio("./call.mp3")
+        setAudio(audioVar)
 
-        if (play) {
-            console.log("play")
-            audio.play()
-            audio.onended = () => {
-                setPlay(false)
-                setButton(false)
-                handleOpen();
-                console.log("ended")
-            }
+
+    }, [])
+    let playAudio = () => {
+        console.log("play")
+        audio.play()
+        audio.onended = () => {
+            setPlay(false)
+            setButton(false)
+            handleOpen();
+            console.log("ended")
         }
-    })
+    }
 
     return (
         <div className={styles.main}>
@@ -60,7 +63,7 @@ export default function BasicModal() {
                     </div>
                     :
                     <button className={styles.button} onClick={() => {
-                        setPlay(true)
+                        playAudio()
                         setButton(true)
                     }}>
                         <AddIcCallIcon className={styles.icon} />
