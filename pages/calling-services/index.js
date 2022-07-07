@@ -91,41 +91,9 @@ export default function BasicModal() {
 
     return (
         <div className={styles.main}>
-            <div className={styles.subMain}  >
-                <h1 className={styles.heading}>Call Flight Attendent</h1>
 
-                {buttonApp ?
-                    <div className={styles.loading}>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </div>
-                    :
-                    <button className={styles.button} onClick={() => {
-                        playAudio()
-                        setButton(true)
-                    }}>
-                        <AddIcCallIcon className={styles.icon} />
-
-                        <span className={styles.buttonText}>Call</span>
-                    </button>}
-                {!buttonApp ?
-
-                    "" :
-                    <button className={styles.endCallBtn} onClick={() => {
-                        setPlay(false)
-                        setButton(false)
-                        audio.pause()
-                    }}>
-                        <CallEndIcon className={styles.icon} />
-
-                        <span className={styles.buttonText}>End</span>
-                    </button>
-                }
-            </div>
             <div className={styles.mainDiv}>
+                <h1 className={styles.heading}>Make phone call</h1>
 
                 <Button
                     onClick={handleOpen}
@@ -216,22 +184,7 @@ export default function BasicModal() {
                     </Box>
                 </Modal>
             </div >
-            <Modal
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-            >
-                <Box sx={style}>
-                    <Typography id="modal-modal-title" variant="h6" component="h2">
-                        Thanks for Calling
-                    </Typography>
-                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                        Tell us how can we assist you?
-                    </Typography>
-                    <Button onClick={handleClose}>Close</Button>
-                </Box>
-            </Modal>
+
         </div>
     );
 }

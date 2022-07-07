@@ -5,6 +5,7 @@
   background-color: rgb(47, 46, 46);
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 }
 .heading {
   font-size: 5.5rem;

@@ -22,12 +22,17 @@ const style = {
 };
 function MyApp({ Component, pageProps }) {
   const [open, setOpen] = React.useState(false);
+  const [openFlight, setOpenFlight] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const handleCloseFlight = () => setOpenFlight(false);
   const [audio, setAudio] = useState(null)
+  const [audioFlight, setAudioFlight] = useState(null)
   useEffect(() => {
     const audioVar = new Audio('/emergencyCall.mp3')
+    const audioFlightVar = new Audio('/phoneCall.mp3')
     setAudio(audioVar)
+    setAudioFlight(audioFlightVar)
     let loyaltyData = localStorage.getItem('loyaltyData')
     if (loyaltyData) {
       console.log("loyaltyData", loyaltyData)
@@ -43,13 +48,21 @@ function MyApp({ Component, pageProps }) {
     <>
       <center>
 
-        <button className={styles.emergencyButton} onClick={() => {
+        <button className={styles.submitButton} onClick={() => {
           audio.play();
           audio.onended = () => {
             setOpen(true)
           }
         }}>
           Emergency Call
+        </button>
+        <button className={styles.submitButton} onClick={() => {
+          audioFlight.play();
+          audioFlight.onended = () => {
+            setOpenFlight(true)
+          }
+        }}>
+          Call Flight Attendant
         </button>
       </center>
       <Component {...pageProps} />
@@ -67,6 +80,22 @@ function MyApp({ Component, pageProps }) {
 
           <input type="text" name="text" className={styles.input} placeholder="Type here!"></input>
           <Button className={styles.submitButton} onClick={handleClose}>Submit</Button>
+        </Box>
+      </Modal>
+      <Modal
+        open={openFlight}
+        onClose={handleCloseFlight}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            Thanks for Calling
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            Tell us how can we assist you?
+          </Typography>
+          <Button onClick={handleCloseFlight}>Close</Button>
         </Box>
       </Modal>
     </>
